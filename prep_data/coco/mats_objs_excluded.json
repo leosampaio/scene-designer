@@ -1,0 +1,11 @@
+{
+    "materials": ["ceiling-other", "mud", "wood", "window-other", "floor-wood", "cloth", "wall-wood", "mat", "metal", "cardboard", "snow", "wall-tile", "net", "playingfield", "pavement", "wall-concrete", "carpet", "curtain", "solid-other", "sand", "stone", "tree", "floor-marble", "dirt", "floor-other", "gravel", "wall-brick", "railroad", "sky-other", "wall-other", "rock", "ceiling-tile", "water-other", "hill", "railing", "fog", "plant-other", "road", "roof", "other", "floor-tile", "structural-other", "sea", "moss", "ground-other", "leaves", "river", "window-blind", "textile-other", "wall-stone", "straw", "grass", "floor-stone" ],
+
+    "excluded_materials": ["plastic", "banner", "clothes"],
+
+    "objects": ["chair", "cow", "bench", "pillow", "clouds", "light", "table", "bear", "building-other", "airplane", "toaster", "knife", "fence", "cabinet", "baseball bat", "vegetable", "train", "horse", "traffic light", "umbrella", "banana", "wine glass", "fork", "branch", "bush", "toilet", "donut", "tennis racket", "elephant", "backpack", "bottle", "car", "remote", "bicycle", "bed", "bridge", "stairs", "teddy bear", "apple", "book", "house", "door-stuff", "mouse", "flower", "tent", "keyboard", "stop sign", "boat", "cake", "toothbrush", "pizza", "broccoli", "motorcycle", "person", "couch", "refrigerator", "spoon", "oven", "fire hydrant", "furniture-other", "sink", "cup", "food-other", "microwave", "waterdrops", "hot dog", "tv", "bus", "fruit", "sports ball", "handbag", "cell phone", "mountain", "vase", "sandwich", "cage", "skyscraper", "carrot", "wall-panel", "laptop", "bird", "tie", "skateboard", "paper", "sheep", "zebra", "cat", "clock", "truck", "dog", "potted plant", "giraffe"],
+
+    "excluded_objects": ["counter", "scissors", "rug", "mirror-stuff", "platform", "snowboard", "baseball glove", "surfboard", "bowl", "salad", "orange", "skis", "cupboard", "hair drier", "frisbee", "parking meter", "shelf", "dining table", "kite", "desk-stuff", "napkin", "blanket", "towel", "suitcase"],
+
+    "fully_excluded": []
+}

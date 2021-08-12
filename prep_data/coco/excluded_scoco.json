@@ -1,0 +1,11 @@
+{
+    "materials": [],
+
+    "excluded_materials": ["ceiling-other", "mud", "wood", "window-other", "floor-wood", "cloth", "wall-wood", "mat", "metal", "cardboard", "snow", "wall-tile", "net", "playingfield", "pavement", "wall-concrete", "carpet", "curtain", "solid-other", "sand", "stone", "tree", "floor-marble", "dirt", "floor-other", "gravel", "wall-brick", "railroad", "sky-other", "wall-other", "rock", "ceiling-tile", "water-other", "hill", "railing", "fog", "plant-other", "road", "roof", "other", "floor-tile", "structural-other", "sea", "moss", "ground-other", "leaves", "river", "window-blind", "textile-other", "wall-stone", "straw", "grass", "floor-stone", "plastic", "banner", "clothes"],
+
+    "objects": ["cow", "airplane", "horse", "traffic light",  "elephant", "car", "bicycle", "motorcycle", "fire hydrant", "sheep", "zebra", "cat",  "dog",  "giraffe"],
+
+    "excluded_objects": ["counter", "scissors", "rug", "mirror-stuff", "platform", "snowboard", "baseball glove", "surfboard", "bowl", "salad", "orange", "skis", "cupboard", "hair drier", "frisbee", "parking meter", "shelf", "dining table", "kite", "desk-stuff", "napkin", "blanket", "towel", "suitcase", "skyscraper", "carrot", "wall-panel", "laptop", "bench", "pillow", "light", "table", "bear", "building-other", "toaster", "knife", "fence", "cabinet", "baseball bat", "vegetable", "train", "umbrella", "banana", "wine glass", "fork", "branch", "bush", "toilet", "donut", "tennis racket", "chair", "backpack", "bottle", "remote", "bed", "bridge", "stairs", "teddy bear", "apple", "book", "house", "door-stuff", "mouse", "flower", "tent", "keyboard", "stop sign", "boat", "cake", "toothbrush", "pizza", "broccoli", "person", "couch", "refrigerator", "spoon", "oven", "furniture-other", "sink", "cup", "food-other", "microwave", "waterdrops", "hot dog", "tv", "bus", "fruit", "sports ball", "handbag", "cell phone", "mountain", "vase", "sandwich", "cage", "tie", "skateboard", "paper", "clock", "truck", "potted plant", "bird", "clouds"],
+
+    "fully_excluded": []
+}
