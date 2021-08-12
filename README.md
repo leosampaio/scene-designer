@@ -1,7 +1,9 @@
 Scene Designer - Official Tensorflow 2.X Implementation
 ========================================================
 
-![Python 3.6](https://img.shields.io/badge/python-3.6-green) ![Tensorflow 2.4](https://img.shields.io/badge/tensorflow-2.1-green) ![MIT License](https://img.shields.io/badge/licence-MIT-green)
+![Python 3.6](https://img.shields.io/badge/python-3.6-green) ![Tensorflow 2.4](https://img.shields.io/badge/tensorflow-2.4-green) ![MIT License](https://img.shields.io/badge/licence-MIT-green)
+
+![Teaser Animation](docs/SceneDesignerTeaser_crop.gif)
 
 This repository contains the official TensorFlow 2.X implementation of:
 
