@@ -55,7 +55,7 @@ def main():
         description='Prepare large dataset for chunked loading')
     parser.add_argument('--dataset-dir', default='/store/shared/datasets/coco-stuff')
     parser.add_argument('--target-dir', default='/store/lribeiro/datasets/cococrops-tfrecord')
-    parser.add_argument('--val-size', type=int, default=2048)
+    parser.add_argument('--val-size', type=int, default=1024)
     parser.add_argument("--masked", action="store_true")
     parser.add_argument('--hparams', type=str)
 

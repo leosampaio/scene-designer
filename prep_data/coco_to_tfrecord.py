@@ -72,7 +72,7 @@ def main():
     parser.add_argument('--n-chunks', type=int, default=5)
     parser.add_argument('--test-n-chunks', type=int, default=1)
     parser.add_argument('--valid-n-chunks', type=int, default=1)
-    parser.add_argument('--val-size', type=int, default=2048)
+    parser.add_argument('--val-size', type=int, default=1024)
     parser.add_argument('--hparams', type=str)
 
     args = parser.parse_args()
