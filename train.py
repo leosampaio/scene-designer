@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-train_clas_transformer.py
-Created on Oct 08 2019 16:08
+Scene Designer: a Unified Model for Scene Search and Synthesis from Sketch
 
-@author: Tu Bui tb0035@surrey.ac.uk
+Leo Sampaio Ferraz Ribeiro (ICMC/USP), 
+Tu Bui (CVSSP/University of Surrey), 
+John Collomosse (CVSSP/University of Surrey and Adobe Research), 
+Moacir Ponti (ICMC/USP)
 """
 
 import argparse
@@ -15,9 +16,6 @@ import models
 import dataloaders
 
 import os
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-# os.environ['AUTOGRAPH_VERBOSITY'] = '2'
-
 
 def main():
 

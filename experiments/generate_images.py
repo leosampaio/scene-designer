@@ -115,8 +115,8 @@ class GenerateImages(Experiment):
             # save stuff
             filepath_jpg = os.path.join("{:012}.jpg".format(identifier[0]))
             filepath_png = filepath_jpg.replace("jpg", "png")
-            # skio.imsave(os.path.join(self.images_dir, filepath_jpg), (image * 255).astype(np.uint8))
-            # skio.imsave(os.path.join(self.sketches_dir, filepath_png), (sketch_comp * 255).astype(np.uint8))
+            skio.imsave(os.path.join(self.images_dir, filepath_jpg), (image * 255).astype(np.uint8))
+            skio.imsave(os.path.join(self.sketches_dir, filepath_png), (sketch_comp * 255).astype(np.uint8))
             if self.hps['flipped_sketches']:
                 skio.imsave(os.path.join(self.flip_sketches_dir, filepath_png), (flip_sketch_comp * 255).astype(np.uint8))
 
@@ -125,14 +125,14 @@ class GenerateImages(Experiment):
             img_skt_reps, obj_co_vecs = self.model.inference_mixed_representation(sketches, None, boxes)
             ggan_layout, inst_layout = self.model.inference_layout_generation(
                 obj_co_vecs, objs, boxes_bg, masks_bg, objs_bg, rgb=False, gaugan=True)
-            # rgb_layout = self.model.inference_layout_generation(
-            #     obj_co_vecs, objs, boxes_bg, masks_bg, objs_bg, rgb=True, gaugan=False)
+            rgb_layout = self.model.inference_layout_generation(
+                obj_co_vecs, objs, boxes_bg, masks_bg, objs_bg, rgb=True, gaugan=False)
             gen_image = utils.gaugan.generate(ggan_layout, inst_layout)
             skio.imsave(os.path.join(self.gen_dir, filepath_jpg), (gen_image * 255).astype(np.uint8))
-            # skio.imsave(os.path.join(self.sidebyside_dir, filepath_jpg),
-            #             (np.concatenate([sketch_comp, gen_image], axis=1) * 255).astype(np.uint8))
-            # skio.imsave(os.path.join(self.sidebyside_layout_dir, filepath_jpg),
-            #             (np.concatenate([sketch_comp, rgb_layout], axis=1) * 255).astype(np.uint8))
+            skio.imsave(os.path.join(self.sidebyside_dir, filepath_jpg),
+                        (np.concatenate([sketch_comp, gen_image], axis=1) * 255).astype(np.uint8))
+            skio.imsave(os.path.join(self.sidebyside_layout_dir, filepath_jpg),
+                        (np.concatenate([sketch_comp, rgb_layout], axis=1) * 255).astype(np.uint8))
 
             # images-based
             if self.hps['generate_from_image']:
@@ -160,8 +160,8 @@ class GenerateImages(Experiment):
                 skio.imsave(os.path.join(self.gt_gen_dir, filepath_jpg), (gtlayout_gen_image * 255).astype(np.uint8))
 
             # save the bg layout
-            # bg_layout = self.model.make_bg_layout(boxes_bg, masks_bg, objs_bg, rgb=True)
-            # skio.imsave(os.path.join(self.bg_layout_dir, filepath_png), (bg_layout.numpy() * 255).astype(np.uint8))
+            bg_layout = self.model.make_bg_layout(boxes_bg, masks_bg, objs_bg, rgb=True)
+            skio.imsave(os.path.join(self.bg_layout_dir, filepath_png), (bg_layout.numpy() * 255).astype(np.uint8))
 
             # mixed domains
             if self.hps['generate_from_mixed'] and len(objs) > 1:
