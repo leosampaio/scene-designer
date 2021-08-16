@@ -12,10 +12,13 @@ Leo Sampaio Ferraz Ribeiro (ICMC/USP), Tu Bui (CVSSP/University of Surrey), John
 
 > Abstract: Scene Designer is a novel method for searching and generating images using free-hand sketches of scene compositions; i.e. drawings that describe both the appearance and relative positions of objects. Our core contribution is a single unified model to learn both a cross-modal search embedding for matching sketched compositions to images, and an object embedding for layout synthesis. We show that a graph neural network (GNN) followed by Transformer under our novel contrastive learning setting is required to allow learning correlations between object type, appearance and arrangement, driving a mask generation module that synthesises coherent scene layouts, whilst also delivering state of the art sketch based visual search of scenes.
 
+[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/1234.56789) [![CVF](https://img.shields.io/badge/CVF-ICCV%20Workshop-blue)]()
+
 ## Table of contents
 1. [Preparing the QuickdrawCOCO-92c Dataset](#qdcoco)
 2. [Preparing the SketchyCOCO dataset](#scoco)
 3. [Training Stage 01](#stage01)
+4. [Training Stage 02 and 03](#stage02)
 
 ## Preparing the QuickdrawCOCO-92c Dataset <a name="qdcoco"></a>
 
@@ -101,7 +104,7 @@ python -m dataloaders.sketchycoco_tfrecord
 
 ![Animation Explaining How Stage 01 Works](docs/SD_Stage01.gif)
 
-In the first stage of training, the Object-level Representation is trained independent of the model, using the dual triplet and cross-entropy loss. The input is a triple composed of (a, p, n), where a is a sketch, p is an object crop of the same class and n is an object crop of a different class. The ``quickdraw-cococrops-tf` dataloader (code [here](dataloaders/qd_cc_tfrecord.py) takes care of making those triplets. To train we can use the following command:
+In the first stage of training, the Object-level Representation is trained independent of the model, using the dual triplet and cross-entropy loss. The input is a triple composed of (a, p, n), where a is a sketch, p is an object crop of the same class and n is an object crop of a different class. The ``quickdraw-cococrops-tf` dataloader (code [here](dataloaders/qd_cc_tfrecord.py)) takes care of making those triplets. To train we can use the following command:
 
 ```bash
 python train.py multidomain-representation --data-loader quickdraw-cococrops-tf \
@@ -112,7 +115,7 @@ python train.py multidomain-representation --data-loader quickdraw-cococrops-tf 
                                            --gpu 0 --resume latest --id 01
 ```
 
-Note how both `qdraw_dir` and `crops_dir` need to be specified with the TF Datasets created earlier. Keep your choice of `--id` in mind so that it can be loaded back in stage 01. The model type is `multidomain-representation`, which is implemented in (multidomain_classifier.py)[models/multidomain_classifier.py]. You can check which params are available to change by looking at the `python train.py --help-hps` output or directly in the model code.
+Note how both `qdraw_dir` and `crops_dir` need to be specified with the TF Datasets created earlier. Keep your choice of `--id` in mind so that it can be loaded back in stage 02. The model type is `multidomain-representation`, which is implemented in (multidomain_classifier.py)[models/multidomain_classifier.py]. You can check which params are available to change by looking at the `python train.py --help-hps` output or directly in the model code.
 
 During training and evaluation, plots of losses and evaluation metrics are saved every `notify_every` steps. Those plots can be sent to slack as well if the user provides a file with the following format:
 
@@ -122,3 +125,10 @@ slack_channel
 ```
 
 And sets the `slack_config` parameter to the path to this file.
+
+All training checkpoints and plots will be saved in `/path/to/your/checkpoints/directory/multidomain-representation-ID`
+
+## Training Stage 02 and 03 <a name="stage02"></a>
+
+![Full Model Diagram](docs/SD_FullModel.png)
+
