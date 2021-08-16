@@ -98,3 +98,27 @@ python -m dataloaders.sketchycoco_tfrecord
 ```
 
 ## Training Stage 01 <a name="stage01"></a>
+
+![Animation Explaining How Stage 01 Works](docs/SD_Stage01.gif)
+
+In the first stage of training, the Object-level Representation is trained independent of the model, using the dual triplet and cross-entropy loss. The input is a triple composed of (a, p, n), where a is a sketch, p is an object crop of the same class and n is an object crop of a different class. The ``quickdraw-cococrops-tf` dataloader (code [here](dataloaders/qd_cc_tfrecord.py) takes care of making those triplets. To train we can use the following command:
+
+```bash
+python train.py multidomain-representation --data-loader quickdraw-cococrops-tf \
+                                           -o /path/to/your/checkpoints/directory \
+                                           --hparams learning_rate=1e-4 \
+                                           --base-hparams batch_size=64,log_every=5,notify_every=20000,save_every=10000,safety_save=2000,iterations=100000,goal="First Stage of Scene Designer",slack_config='token.secret' \
+                                           --data-hparams qdraw_dir='path/to/quickdraw-tf',crops_dir='/path/to/coco-crops'
+                                           --gpu 0 --resume latest --id 01
+```
+
+Note how both `qdraw_dir` and `crops_dir` need to be specified with the TF Datasets created earlier. Keep your choice of `--id` in mind so that it can be loaded back in stage 01. The model type is `multidomain-representation`, which is implemented in (multidomain_classifier.py)[models/multidomain_classifier.py]. You can check which params are available to change by looking at the `python train.py --help-hps` output or directly in the model code.
+
+During training and evaluation, plots of losses and evaluation metrics are saved every `notify_every` steps. Those plots can be sent to slack as well if the user provides a file with the following format:
+
+```
+SLACK-BOT-TOKEN
+slack_channel
+```
+
+And sets the `slack_config` parameter to the path to this file.
