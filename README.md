@@ -12,7 +12,12 @@ Leo Sampaio Ferraz Ribeiro (ICMC/USP), Tu Bui (CVSSP/University of Surrey), John
 
 > Abstract: Scene Designer is a novel method for searching and generating images using free-hand sketches of scene compositions; i.e. drawings that describe both the appearance and relative positions of objects. Our core contribution is a single unified model to learn both a cross-modal search embedding for matching sketched compositions to images, and an object embedding for layout synthesis. We show that a graph neural network (GNN) followed by Transformer under our novel contrastive learning setting is required to allow learning correlations between object type, appearance and arrangement, driving a mask generation module that synthesises coherent scene layouts, whilst also delivering state of the art sketch based visual search of scenes.
 
-## Preparing the QuickdrawCOCO-92c Dataset
+## Table of contents
+1. [Preparing the QuickdrawCOCO-92c Dataset](#qdcoco)
+2. [Preparing the SketchyCOCO dataset](#scoco)
+3. [Training Stage 01](#stage01)
+
+## Preparing the QuickdrawCOCO-92c Dataset <a name="qdcoco"></a>
 
 For each object in a COCO-stuff scene, we randomly select a QuickDraw sketch from the same class and replace the object crop. To do so, a map from QuickDraw classes to COCO classes was made. This map can be found in [quickdraw_to_coco_v2.json](prep_data/quickdraw/quickdraw_to_coco_v2.json) and on the Supplementary Material. Since QuickdrawCOCO-92c's sketch scenes are synthesised on the fly, we preprocess the original Quick Draw! into an indexed Tensorflow Dataset and preprocess COCO into a scene-graph annotated TF Dataset. 
 
@@ -22,13 +27,15 @@ The version used in the paper is the [Sketch-RNN QuickDraw Dataset](https://gith
 
 We will need two TF Dataset versions. For the first stage of training we want a randomly ordered TF Dataset:
 ```bash
-python -m prep_data.quickdraw_to_tfrecord --dataset-dir path/to/quickdraw/download --target-dir path/to/save/quickdraw-tf
+python -m prep_data.quickdraw_to_tfrecord --dataset-dir path/to/quickdraw/download \
+                                          --target-dir path/to/save/quickdraw-tf
 ```
 
 Then, for the second phase onwards, we want a class-indexed TF Dataset:
 
 ```bash
-python -m prep_data.index_quickdrawtf --dataset-dir path/to/quickdraw/download --target-dir path/to/save/quickdraw-indexed
+python -m prep_data.index_quickdrawtf --dataset-dir path/to/quickdraw/download \
+                                      --target-dir path/to/save/quickdraw-indexed
 ```
 
 These two versions were designed to improve the data loading bottleneck and RAM usage on all training stages.
@@ -40,7 +47,9 @@ We want to generate two TF datasets from COCO, (a) the complete scenes together 
 First, download all COCO-stuff files from the [Downloads Section](https://github.com/nightrome/cocostuff#downloads) in their official GitHub repo. Unzip the `.zip` files into the same directory. Now, to build (a) run the following script:
 
 ```bash
-python -m prep_data.coco_to_tfrecord --dataset-dir path/to/coco-stuff --target-dir /path/to/save/coco-graphs --n-chunks 5 --val-size 1024
+python -m prep_data.coco_to_tfrecord --dataset-dir path/to/coco-stuff \
+                                     --target-dir /path/to/save/coco-graphs \
+                                     --n-chunks 5 --val-size 1024
 ```
 
 Note that you can change some of the parameters of this script, have a look at [coco_to_tfrecord.py](prep_data/coco_to_tfrecord.py) to see the default params for image size, mask size, filtering parameters, etc..
@@ -48,12 +57,13 @@ Note that you can change some of the parameters of this script, have a look at [
 Finally, build (b) the indexed set of object crops with:
 
 ```bash
-python -m prep_data.cococrops_to_tfrecord --dataset-dir path/to/coco-stuff --target-dir /path/to/save/coco-crops
+python -m prep_data.cococrops_to_tfrecord --dataset-dir path/to/coco-stuff \
+                                          --target-dir /path/to/save/coco-crops
 ```
 
 ### Testing QuickDrawCOCO-92c
 
-It's possible to test if the data was preprocessed correctly and the data loading speed by running the data loaders as scripts. Change the `default_hparams` to match the directories that you've just created and try running:
+It's possible to test if the data was preprocessed correctly and the data loading speed by running the data loaders as scripts. Change the `default_hparams` on [qd_cc_tfrecord.py](dataloaders/qd_cc_tfrecord.py) and [coco_tfrecord.py](dataloaders/coco_tfrecord.py) to match the directories that you've just created and try running:
 
 ```bash
 python -m dataloaders.qd_cc_tfrecord
@@ -66,3 +76,25 @@ python -m dataloaders.coco_tfrecord
 ```
 
 to check if the scene graphs, indexed quick draw and crops sets are all right.
+
+## Preparing the SketchyCOCO Dataset <a name="scoco"></a>
+
+Download SketchyCOCO from the [official GitHub Repo](https://github.com/sysu-imsl/SketchyCOCO#google-drive-hosting) and unzip the files into a common directory. Then run the script to create the TF Dataset:
+
+```bash
+python -m prep_data.sketchycoco_to_tfrecord --dataset-dir path/to/coco-stuff \
+                                            --target-dir /path/to/save/coco-crops \
+                                            --sketchycoco-dir /path/to/sketchycoco
+```
+
+Notice that we use coco-stuff annotation that is not available with SketchyCOCO, so you have to specify the path to your previously downloaded COCO-stuff set as well, it will be filtered to match the SketchyCOCO set.
+
+### Testing SketchyCOCO
+
+As with QuickDrawCOCO-92c, it is possible to test if the dataloader is working by changing the `default_hparams` on [sketchycoco_tfrecord.py](dataloaders/sketchycoco_tfrecord.py) and running:
+
+```bash
+python -m dataloaders.sketchycoco_tfrecord
+```
+
+## Training Stage 01 <a name="stage01"></a>
