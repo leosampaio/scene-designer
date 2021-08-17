@@ -16,10 +16,13 @@ Leo Sampaio Ferraz Ribeiro (ICMC/USP), Tu Bui (CVSSP/University of Surrey), John
 
 ## Table of contents
 1. [Installing Requirements](#requirements)
-1. [Preparing the QuickdrawCOCO-92c Dataset](#qdcoco)
-2. [Preparing the SketchyCOCO dataset](#scoco)
-3. [Training Stage 01](#stage01)
-4. [Training Stage 02 and 03](#stage02)
+2. [Preparing the QuickdrawCOCO-92c Dataset](#qdcoco)
+3. [Preparing the SketchyCOCO dataset](#scoco)
+4. [Training Stage 01](#stage01)
+5. [Training Stage 02 and 03](#stage02)
+6. [Evaluation](#evaluation)
+7. [Pretrained Models](#pretrained)
+8. [Citation](#citation)
 
 <a name="qdcoco"></a>
 ## Preparing the QuickdrawCOCO-92c Dataset 
@@ -236,11 +239,15 @@ python api.py
 
 This is going to create a server that receives scene layouts and responds with generated images. Now the `generate-images` experiment should work as intended and generate images from all of the test set.
 
+## Pre-trained Models <a name="pretrained"></a>
 
-## Citation
+Will be available soon!
+
+## Citation <a name="citation"></a>
 
 This paper will be presented on the 1st Workshop on Sketching for Human Expressivity, at ICCV 2021
 
+```
 @InProceedings{SceneDesigner2021,
 author = {Leo Sampaio Ferraz Ribeiro and Tu Bui and John Collomosse and Moacir Ponti},
 title = {Scene Designer: a Unified Model for Scene Search and Synthesis from Sketch},
@@ -248,3 +255,4 @@ booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vi
 month = {Oct},
 year = {2021}
 }
+```
