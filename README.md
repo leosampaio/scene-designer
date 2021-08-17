@@ -24,6 +24,11 @@ Leo Sampaio Ferraz Ribeiro (ICMC/USP), Tu Bui (CVSSP/University of Surrey), John
 7. [Pretrained Models](#pretrained)
 8. [Citation](#citation)
 
+<a name="requirements"></a>
+## Installing Requirements
+
+Inside the [dependencies](dependencies) folder you will find two requirements files ([requirements.txt](dependencies/requirements.txt) and [git-requirements.txt](dependencies/git-requirements.txt)) and a [Dockerfile](dependencies/Dockerfile). It is possible to either build the docker image directly (recommended!) or a virtualenv from the requirement files using `pip install -r requirements.txt` and `pip install -r git-requirements.txt`. Python 3.6 and Tensorflow 2.4 are recommended.
+
 <a name="qdcoco"></a>
 ## Preparing the QuickdrawCOCO-92c Dataset 
 
@@ -85,7 +90,8 @@ python -m dataloaders.coco_tfrecord
 
 to check if the scene graphs, indexed quick draw and crops sets are all right.
 
-## Preparing the SketchyCOCO Dataset <a name="scoco"></a>
+<a name="scoco"></a>
+## Preparing the SketchyCOCO Dataset 
 
 Download SketchyCOCO from the [official GitHub Repo](https://github.com/sysu-imsl/SketchyCOCO#google-drive-hosting) and unzip the files into a common directory. Then run the script to create the TF Dataset: 
 
