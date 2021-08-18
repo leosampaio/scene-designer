@@ -12,7 +12,8 @@ Leo Sampaio Ferraz Ribeiro (ICMC/USP), Tu Bui (CVSSP/University of Surrey), John
 
 > Abstract: Scene Designer is a novel method for searching and generating images using free-hand sketches of scene compositions; i.e. drawings that describe both the appearance and relative positions of objects. Our core contribution is a single unified model to learn both a cross-modal search embedding for matching sketched compositions to images, and an object embedding for layout synthesis. We show that a graph neural network (GNN) followed by Transformer under our novel contrastive learning setting is required to allow learning correlations between object type, appearance and arrangement, driving a mask generation module that synthesises coherent scene layouts, whilst also delivering state of the art sketch based visual search of scenes.
 
-[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/1234.56789) [![CVF](https://img.shields.io/badge/CVF-ICCV%20Workshop-blue)]()
+[![arXiv](https://img.shields.io/badge/arXiv-2108.07353-b31b1b.svg)](https://arxiv.org/abs/2108.07353) 
+<!-- [![CVF](https://img.shields.io/badge/CVF-ICCV%20Workshop-blue)]() -->
 
 ## Table of contents
 1. [Installing Requirements](#requirements)
@@ -160,12 +161,12 @@ python train.py graph-attention --data-loader coco-tfrecord \
                                 --gpu 0 --resume latest --id SD01
 ```
 
-Note how the stage 01 ID is used for the parameter `pt_mdomain_id`. Finally, after training for 120k iterations on this stage, change the dataset and train Stage 03, where the model is finetuned on the hard paired SketchyCOCO set for 5k iterations:
+Note how the stage 01 ID is used for the parameter `pt_mdomain_id`. Finally, after training for 120k iterations on this stage, change the dataset, learning rate, and train Stage 03, where the model is finetuned on the hard paired SketchyCOCO set for 5k iterations:
 
 ```bash
 python train.py graph-attention --data-loader sketchycoco-tf \
                                 -o /path/to/your/checkpoints/directory \
-                                --hparams learning_rate=1e-4,pt_mdomain_id='01' \
+                                --hparams learning_rate=1e-5,pt_mdomain_id='01' \
                                 --data-hparams sketchycoco_dir='path/to/sketchycoco-tf',crops_dir='/path/to/coco-crops' \
                                 --base-hparams batch_size=16,log_every=5,notify_every=10000,save_every=10000,safety_save=50000,iterations=125000,goal='Train Stage 03',slack_config=token.secret \
                                 --gpu 0 --resume latest --id SD01
@@ -175,7 +176,7 @@ The model plots losses every `notify_every` step and saves them on `/path/to/you
 
 ### Performance
 
-This stage of training, with a batch size of 16, trains at an average of 0.45s/iteration on a single *Nvidia GeForce 2080 Ti*, taking around 15 hours to run the 120k+5k iterations stated in the paper. It consumes 12GB of VRAM (all of a 2080 Ti) and 10GB of RAM on average on our hardware (Intel Core i9-7980XE, 128GB of DDR4 RAM).
+These stages of training, with a batch size of 16, trains at an average of 0.40s/iteration on a single *Nvidia GeForce 2080 Ti*, taking around 15 hours to run the 120k+5k iterations stated in the paper. It consumes 12GB of VRAM (all of a 2080 Ti) and 10GB of RAM on average on our hardware (Intel Core i9-7980XE, 128GB of DDR4 RAM).
 
 ## Evaluation <a name="evaluation"></a>
 
