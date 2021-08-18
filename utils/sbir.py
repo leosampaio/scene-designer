@@ -38,12 +38,11 @@ def simple_sbir(queries, dataset, return_mat=False, return_recall=False, labels=
     recall = tf.cumsum(rel, axis=1) / tf.reduce_sum(rel, axis=1, keepdims=True)
     ave_recall = tf.reduce_mean(recall, axis=0)
     if return_mat:
-        return mAP, av_precision[0], av_precision[4], av_precision[9], ids
+        return mAP, ave_recall[0], ave_recall[4], ave_recall[9], ids
     if return_recall:
-        return mAP, av_precision[0], av_precision[4], av_precision[9], ave_recall
+        return mAP, ave_recall[0], ave_recall[4], ave_recall[9], ave_recall
     else:
-        return mAP, av_precision[0], av_precision[4], av_precision[9]
-
+        return mAP, ave_recall[0], ave_recall[4], ave_recall[9]
 
 class sbir(object):
     """class for image retrieval
